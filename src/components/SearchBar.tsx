@@ -1,11 +1,12 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import SearcBarLogo from "@/static/search-logo.svg";
+import SearcBarLogoActive from "@/static/search-logo-active.svg";
 import { useNFTData } from "@/app/context/NFTDataContext";
 
 export default function SearchBar() {
   const { nftData, setNFTData, value, setValue, setIsLoading } = useNFTData();
-
+  const [isActive, setIsActive] = useState<boolean>(false);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value.trim();
     setValue(searchValue);
@@ -45,7 +46,11 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="flex flex-row border p-2 rounded-md border-zinc-700">
+    <div
+      className="flex flex-row border py-2 px-4 border-none rounded-lg bg-[#ffffff1a] hover:bg-[#fff3]"
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+    >
       <input
         type="text"
         value={value}
@@ -53,7 +58,8 @@ export default function SearchBar() {
         className="bg-transparent focus:outline-0 text-white"
         placeholder="Search Holder Address"
       />
-      <Image src={SearcBarLogo} alt="search-logo" />
+      {!isActive && <Image src={SearcBarLogo} alt="search-logo" />}
+      {isActive && <Image src={SearcBarLogoActive} alt="search-logo" />}
     </div>
   );
 }

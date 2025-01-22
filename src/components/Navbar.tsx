@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "bg-[#222325] shadow-md py-4 px-6 flex justify-between items-center"
+        "bg-transparent shadow-md py-4 px-6 flex justify-between items-center"
       )}
     >
       <Image src={Logo} alt="Shibarium-Logo" width={150} height={120} />

@@ -29,7 +29,7 @@ const NftCard = ({ nftData, totalSupply }: CardProps) => {
       setTimeout(() => {
         setCopySuccess(false);
       }, 2000);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setCopySuccess(false);
     }
@@ -37,7 +37,7 @@ const NftCard = ({ nftData, totalSupply }: CardProps) => {
 
   return (
     <div className="overflow-hidden">
-      <Card className="w-54 bg-[#1a202d] shadow-md border-none">
+      <Card className="w-54 bg-[#ffffff1a] hover:bg-[#fff3] shadow-md border-none cursor-pointer">
         <CardHeader className="flex flex-row items-center relative md:justify-between">
           <div className="flex flex-row items-center mt-1.5 gap-1">
             <Image src={WalletSvg} alt={"wallet"} style={{ width: "20px" }} />
@@ -90,7 +90,7 @@ const NftCard = ({ nftData, totalSupply }: CardProps) => {
           </div>
         </CardContent>
         <CardFooter>
-          <div className="w-full bg-gray-700 rounded-full h-2.5 overflow-hidden">
+          <div className="w-full bg-[#dee9fb] rounded-full h-2.5 overflow-hidden">
             <div
               className="bg-green-500 h-2.5 transition-all duration-300 ease-in-out"
               style={{

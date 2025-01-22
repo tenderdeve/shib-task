@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${lexend.variable} antialiased bg-[#0f1112]`}>
+      <body
+        className={`${lexend.variable} antialiased bg-gradient-to-t from-[#121212] from-1% to-[#133d84] to-99%`}
+      >
         <NFTDataProvider>{children}</NFTDataProvider>
       </body>
     </html>
