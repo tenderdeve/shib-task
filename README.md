@@ -31,6 +31,6 @@ The project is built using the following technologies.
 
 The project is hosted on Vercel. You can access it using the link below.
 
-[Deployment Link](www.google.com)
+[Deployment Link](https://shib-task.vercel.app/)
 
 **Note:** The analytical/blockchain part is achieved by the Shibarium RPC method [`/tokens/{address_hash}/holders`](https://www.shibariumscan.io/api-docs).
