@@ -19,11 +19,18 @@ const fetchNFTData = async (params = {}): Promise<FetchResponse> => {
 };
 
 const PaginatedList = () => {
-  const { nftData, setNFTData, totalSupply, setTotalSupply, value } =
-    useNFTData();
+  const {
+    nftData,
+    setNFTData,
+    totalSupply,
+    setTotalSupply,
+    value,
+    isLoading,
+    setIsLoading,
+  } = useNFTData();
 
   const [localQueue, setLocalQueue] = useState<NFTData[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [nextPageParams, setNextPageParams] = useState<
     Record<string, string | null>
   >({});
@@ -59,8 +66,7 @@ const PaginatedList = () => {
       setNextPageParams(data.nextPageParams || {});
       setHasMore(data.hasMore && nftData.length + data.holders.length < 100);
       loadMoreFromQueue();
-    } catch (error) {
-      console.error("Error fetching NFT data:", error);
+    } catch {
       setHasMore(false);
     } finally {
       setIsLoading(false);
@@ -82,22 +88,24 @@ const PaginatedList = () => {
 
   return (
     <div className="w-full h-[90vh] overflow-auto p-10">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-        {nftData.map((item, index) => (
-          <NftCard nftData={item} key={index} totalSupply={totalSupply} />
-        ))}
-      </div>
-      {isLoading && (
+      {<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+          {nftData.map((item, index) => (
+            <NftCard nftData={item} key={index} totalSupply={totalSupply} />
+          ))}
+        </div>}
+      {isLoading &&
         <div className="flex justify-center top-[100%]">
           <Image src={LoadingBar} alt={"loading..."} />
-        </div>
-      )}
+        </div>}
+      {!isLoading && nftData.length===0 && <p className="text-center text-gray-400 mt-4">
+          No such address found!
+        </p>}
       <div ref={ref} className="h-10 w-full"></div>
-      {!hasMore && (
+      {!hasMore && !isLoading && (
         <p className="text-center text-gray-400 mt-4">
           {nftData.length === 100
             ? "Limit of 100 holders reached."
-            : "End of the list."}
+            : nftData.length===0 ? "End of the list." : ""}
         </p>
       )}
     </div>

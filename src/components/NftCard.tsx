@@ -29,8 +29,8 @@ const NftCard = ({ nftData, totalSupply }: CardProps) => {
       setTimeout(() => {
         setCopySuccess(false);
       }, 2000);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error("Failed to copy: ", err);
       setCopySuccess(false);
     }
   };

@@ -4,8 +4,7 @@ import SearcBarLogo from "@/static/search-logo.svg";
 import { useNFTData } from "@/app/context/NFTDataContext";
 
 export default function SearchBar() {
-  
-  const { nftData, setNFTData, value, setValue } = useNFTData();
+  const { nftData, setNFTData, value, setValue, setIsLoading } = useNFTData();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value.trim();
@@ -18,8 +17,9 @@ export default function SearchBar() {
   };
 
   const filterNFTData = (searchValue: string) => {
+    setIsLoading(true);
     if (!nftData || nftData.length === 0) {
-      console.warn("NFT data is empty or undefined.");
+      setIsLoading(false);
       return;
     }
 
@@ -27,17 +27,20 @@ export default function SearchBar() {
       (entry) => entry.walletAddress.toString() === searchValue
     );
 
-    console.log("Filtered Data:", filteredData);
     setNFTData(filteredData);
+    setIsLoading(false);
   };
 
   const fetchOriginalNFTData = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch("/api/getHoldersList");
       const data = await response.json();
       setNFTData(data.holders || []);
+      setIsLoading(false);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error("Error fetching original NFT data:", error);
+      setIsLoading(false);
     }
   };
 
